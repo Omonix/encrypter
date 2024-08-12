@@ -1,10 +1,11 @@
 import random
+import string
 
 todo = input('\033[1;34mDo you want encrypt or decrypt message ? e/d ')
+alphabet = ' ' + string.punctuation + string.digits + string.ascii_letters
 
 def genPassword(length):
     pwd = ""
-    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123465789'
     i = 0
     while i < int(length):
         pwd = pwd + random.choice(alphabet)
@@ -12,18 +13,14 @@ def genPassword(length):
     return pwd
 def vigenere(message, key, direction=1):
     key_index = 0
-    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123465789'
     encrypted_message = ''
     for char in message:
-        if (ord(char) < 122 and ord(char) > 97) or (ord(char) > 48 and ord(char) < 57) or (ord(char) < 90 and ord(char) > 65):
-            key_char = key[key_index % len(key)]
-            key_index += 1
-            offset = alphabet.index(key_char)
-            index = alphabet.find(char)
-            new_index = (index + offset*direction) % len(alphabet)
-            encrypted_message += alphabet[new_index]
-        else:
-            encrypted_message += char
+        key_char = key[key_index % len(key)]
+        key_index += 1
+        offset = alphabet.index(key_char)
+        index = alphabet.find(char)
+        new_index = (index + offset*direction) % len(alphabet)
+        encrypted_message += alphabet[new_index]
     return encrypted_message
 def decrypt(message, key):
     return vigenere(message, key, -1)
