@@ -2,7 +2,7 @@ import random
 import string
 
 todo = input('\033[1;34mDo you want encrypt or decrypt message ? e/d ')
-alphabet = string.printable
+alphabet = '    ' + ' ' + string.punctuation + string.ascii_letters + string.digits
 
 def genPassword(length):
     pwd = ""
